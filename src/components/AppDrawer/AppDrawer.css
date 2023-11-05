@@ -1,0 +1,9 @@
+a.active,
+a.active:hover {
+    background: #55bc55;
+}
+
+a.active,
+a.active svg {
+    color: white;
+}
