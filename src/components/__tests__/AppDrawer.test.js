@@ -23,7 +23,6 @@ describe('App Drawer', () => {
             icon: <AttachMoney />
         },
     ]
-    screen.debug();
 
     beforeEach(() => {
         render(
@@ -58,5 +57,10 @@ describe('App Drawer', () => {
     it('should have all texts from the list items', () => {
         const texts = appDrawerList.map((listItem) => screen.getByText(listItem.text));
         expect(texts.length).toEqual(appDrawerList.length);
+    })
+
+    it('first link should have the class active by default', () => {
+        const firstLink = screen.getAllByRole('link')[0];
+        expect(firstLink).toHaveClass('active');
     })
 })
