@@ -1,6 +1,7 @@
 import { AccountBalance, AttachMoney, Contacts, Dashboard, Description, Person } from "@mui/icons-material";
 import AppDrawer from "./components/AppDrawer/AppDrawer";
-import { ThemeProvider, createTheme } from "@mui/material";
+import Navbar from "./components/Navbar/Navbar";
+import { ThemeProvider, createTheme, Box, CssBaseline, Toolbar, Typography } from "@mui/material";
 
 function App() {
   const appDrawerList = [
@@ -43,6 +44,12 @@ function App() {
         primary: '#000',
       },
     },
+    palette: {
+      primary: {
+        main: '#55bc55',
+        grey: '#f6f7f9',
+      }
+    },
     components: {
       MuiIcon: {
         styleOverrides: {
@@ -53,11 +60,23 @@ function App() {
       },
     },
   })
+
+  const drawerWidth = 220;
+
   return (
     <ThemeProvider theme={muiTheme}>
-      <div className="App">
-        <AppDrawer list={appDrawerList} />
-      </div>
+      <Box className="App" sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <Navbar drawerWidth={drawerWidth} />
+        <AppDrawer list={appDrawerList} drawerWidth={drawerWidth} />
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, bgcolor: muiTheme.palette.primary.grey, p: 3 }}
+        >
+          <Toolbar />
+          
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 }
