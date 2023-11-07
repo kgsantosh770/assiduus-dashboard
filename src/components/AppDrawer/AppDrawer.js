@@ -35,7 +35,14 @@ const AppDrawer = (props) => {
     return (
         <Drawer
             variant='permanent'
-            anchor='left'
+            sx={{
+                width: props.drawerWidth,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: props.drawerWidth,
+                    boxSizing: 'border-box',
+                },
+            }}
         >
             <Toolbar sx={toolBarStyle}>
                 <img src={LogoWithText} alt="logo" height={'36px'} />
