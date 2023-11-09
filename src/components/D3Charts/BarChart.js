@@ -15,6 +15,9 @@ function BarChart(props) {
             .attr('width', width)
             .attr('height', height);
 
+        // clear old data
+        svg.selectAll("rect").remove();
+
         // Create a scale for the x-axis
         const xScale = d3.scaleBand()
             .domain(xValues)

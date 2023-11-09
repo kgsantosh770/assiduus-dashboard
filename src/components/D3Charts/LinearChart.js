@@ -13,6 +13,9 @@ const LinearChart = (props) => {
             .attr('width', width)
             .attr('height', height);
 
+        // clear old data
+        svg.selectAll("path").remove();
+
         // Create a scale for the x-axis
         const xScale = d3.scaleLinear()
             .domain([9, 9 + data.length - 1]) // X-axis range based on data length
@@ -47,7 +50,7 @@ const LinearChart = (props) => {
 
         // Remove y-axis line (no y-axis)
         svg.select('.domain').remove();
-    }, [data]);
+    }, [props.data]);
     return <svg className='line-chart' ref={svgRef}></svg>
 }
 
