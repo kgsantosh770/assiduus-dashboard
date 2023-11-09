@@ -2,7 +2,6 @@ import { Box, Divider, Toolbar, Typography } from '@mui/material';
 import './Chart.css';
 
 const Chart = (props) => {
-  console.log(props)
   return (
     <Box sx={{ background: 'white', borderRadius: '5px' }}>
       <Toolbar sx={{ '&&': { px: '1rem', minHeight: '57px', display: 'flex', justifyContent: 'space-between' } }}>
