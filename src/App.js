@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AccountBalance, AttachMoney, Contacts, Dashboard, Description, Person } from "@mui/icons-material";
 import AppDrawer from "./components/AppDrawer/AppDrawer";
 import Navbar from "./components/Navbar/Navbar";
@@ -8,6 +9,8 @@ import BarChart from './components/D3Charts/BarChart';
 import DataTable from "./components/Chart/Table";
 import DropdownButton from "./components/DropdownButton/DropdownButton";
 import FileUploaderButton from "./components/FileUploaderButton/FileUploaderButton";
+import { allGraphData } from "./data";
+import { randomizeGraphData } from "./utils";
 
 function App() {
   const appDrawerList = [
@@ -69,35 +72,17 @@ function App() {
   })
 
   const drawerWidth = 220;
-  const graphData = {
-    'accounts': {
-      data: {
-        'January': [25, 65, 67, 45, 78, 54, 89, 10, 76, 32],
-        'February': [45, 75, 27, 65, 48, 24, 49, 70, 86, 32],
-        'March': [25, 65, 67, 45, 78, 54, 89, 10, 76, 32],
-        'April': [45, 75, 27, 65, 48, 24, 49, 70, 86, 32],
-      },
-    },
-    'invoice': {
-      xValues: ['older', 'Jan 01-08', 'Jan 09-16', 'Jan 17-24', 'Jan 25-31', 'future'],
-      data: [20, 30, 10, 50, 20, 30],
-    },
-    'cashflow': {
-      xValues: ['August', 'September', 'October', 'November', 'December', 'January'],
-      data: [20, 30, 10, 30, 20, 30],
-    },
-    'watchlist': {
-      data: {
-        headers: ['Account', 'This Month', 'YTD'],
-        values: [
-          { name: 'Sales', month: 1194.58, ytd: 11418.29 },
-          { name: 'Advertising', month: 4693.79, ytd: 9271.36 },
-          { name: 'Inventory', month: 6879.02, ytd: 9768.83 },
-          { name: 'Entertainment', month: 0, ytd: 0 },
-          { name: 'Product', month: 4572.97, ytd: 2529.90 },
-        ],
-      }
-    }
+  const [graphData, setGraphData] = useState(allGraphData);
+
+  const handleRandomizeButton = () => {
+    console.log(randomizeGraphData(graphData))
+    setGraphData((prevData) => randomizeGraphData({ ...prevData }));
+  }
+
+  const changeCurrentMonth = (month) => {
+    const newData = { ...graphData };
+    newData.accounts.current = month;
+    setGraphData(newData);
   }
 
   const AccountButtons = () => {
@@ -111,7 +96,12 @@ function App() {
     return (
       <Box sx={{ display: 'flex', gap: '1rem' }}>
         <DropdownButton btnName="Manage" menuItems={[]} style={btnStyle} />
-        <DropdownButton btnName={months[0]} menuItems={months.slice(1)} style={btnStyle} />
+        <DropdownButton
+          btnName={graphData.accounts.current}
+          menuItems={months}
+          style={btnStyle}
+          onChange={(month) => changeCurrentMonth(month)}
+        />
       </Box>
     )
   }
@@ -135,7 +125,7 @@ function App() {
     <ThemeProvider theme={muiTheme}>
       <Box className="App" sx={{ display: 'flex' }}>
         <CssBaseline />
-        <Navbar drawerWidth={drawerWidth} />
+        <Navbar drawerWidth={drawerWidth} randomize={() => handleRandomizeButton()} />
         <AppDrawer list={appDrawerList} drawerWidth={drawerWidth} />
         <Box
           component="main"
@@ -148,7 +138,7 @@ function App() {
               headerChildren={<AccountButtons />}
             >
               <LinearChart
-                data={Object.values(graphData.accounts.data)[0]}
+                data={graphData.accounts.data[graphData.accounts.current]}
                 width={495}
                 height={240}
               />

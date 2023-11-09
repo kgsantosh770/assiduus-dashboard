@@ -76,7 +76,9 @@ const Navbar = (props) => {
         }
     }
 
-    const handleRandamization = () => { }
+    const handleRandamization = () => {
+        props.randomize();
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>

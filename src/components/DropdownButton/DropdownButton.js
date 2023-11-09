@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
@@ -7,13 +7,11 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
-import { useTheme } from '@mui/material';
 import { KeyboardArrowDown } from '@mui/icons-material';
 
 export default function DropdownButton(props) {
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef(null);
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -23,7 +21,7 @@ export default function DropdownButton(props) {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
-
+        props.onChange(event.target.getAttribute('value'));
         setOpen(false);
     };
 
@@ -37,8 +35,8 @@ export default function DropdownButton(props) {
     }
 
     // return focus to the button when we transitioned from !open -> open
-    const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+    const prevOpen = useRef(open);
+    useEffect(() => {
         if (prevOpen.current === true && open === false) {
             anchorRef.current.focus();
         }
@@ -87,7 +85,11 @@ export default function DropdownButton(props) {
                                     >
                                         {
                                             props.menuItems.map((item, index) =>
-                                                <MenuItem key={index} onClick={handleClose}>{item}</MenuItem>
+                                                <MenuItem
+                                                    key={index}
+                                                    value={item}
+                                                    onClick={handleClose}
+                                                >{item}</MenuItem>
                                             )
                                         }
                                     </MenuList>
