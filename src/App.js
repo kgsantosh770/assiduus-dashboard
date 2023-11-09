@@ -1,7 +1,7 @@
 import { AccountBalance, AttachMoney, Contacts, Dashboard, Description, Person } from "@mui/icons-material";
 import AppDrawer from "./components/AppDrawer/AppDrawer";
 import Navbar from "./components/Navbar/Navbar";
-import { ThemeProvider, createTheme, Box, CssBaseline, Toolbar, Button, Typography } from "@mui/material";
+import { ThemeProvider, createTheme, Box, CssBaseline, Toolbar, Typography } from "@mui/material";
 import Chart from "./components/Chart/Chart";
 import LinearChart from "./components/D3Charts/LinearChart";
 import BarChart from './components/D3Charts/BarChart';
