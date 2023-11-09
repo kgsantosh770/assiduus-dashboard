@@ -55,7 +55,6 @@ const AppDrawer = (props) => {
                                 sx={listButtonStyle}
                                 component={NavLink}
                                 to={listItem.path}
-                                className={({ isActive }) => isActive ? 'active' : ''}
                             >
                                 <ListItemIcon
                                     sx={listIconStyle}
