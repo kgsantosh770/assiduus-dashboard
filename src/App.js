@@ -7,6 +7,7 @@ import LinearChart from "./components/D3Charts/LinearChart";
 import BarChart from './components/D3Charts/BarChart';
 import DataTable from "./components/Chart/Table";
 import DropdownButton from "./components/DropdownButton/DropdownButton";
+import FileUploaderButton from "./components/FileUploaderButton/FileUploaderButton";
 
 function App() {
   const appDrawerList = [
@@ -109,20 +110,16 @@ function App() {
     )
   }
 
-  const SalesButton = () =>
-    <Button sx={{ color: muiTheme.palette.primary.main, background: '#e8eefd' }}>New Sales Invoice</Button>
-
-
   const CashflowLabels = () => {
     return (
       <Box sx={{ display: 'flex', gap: '1.2rem' }}>
-        <Box sx={{display: 'flex', alignItems:'center', gap: '.3rem'}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '.3rem' }}>
           <Box width={14} height={14} bgcolor={muiTheme.palette.primary.main} borderRadius={0.7} />
-          <Typography variant='p' sx={{fontSize: '.8rem', fontWeight: '500'}}>In</Typography>
+          <Typography variant='p' sx={{ fontSize: '.8rem', fontWeight: '500' }}>In</Typography>
         </Box>
-        <Box sx={{display: 'flex', alignItems:'center', gap: '.3rem'}}>
-          <Box width={14} height={14} bgcolor={muiTheme.palette.primary.main} borderRadius={0.7}/>
-          <Typography variant='p' sx={{fontSize: '.8rem', fontWeight: '500'}}>Out</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '.3rem' }}>
+          <Box width={14} height={14} bgcolor={muiTheme.palette.primary.main} borderRadius={0.7} />
+          <Typography variant='p' sx={{ fontSize: '.8rem', fontWeight: '500' }}>Out</Typography>
         </Box>
       </Box>
     )
@@ -152,7 +149,7 @@ function App() {
             </Chart>
             <Chart
               title='Invoices owned to you'
-              headerChildren={<SalesButton />}
+              headerChildren={<FileUploaderButton btnName="New Sales Invoice" />}
             >
               <BarChart
                 xValues={graphData.invoice.xValues}
