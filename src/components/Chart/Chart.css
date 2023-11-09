@@ -1,0 +1,9 @@
+.x-axis text{
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.bar-chart .x-axis text{
+    font-size: .58rem;
+}
