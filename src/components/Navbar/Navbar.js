@@ -26,6 +26,9 @@ const Search = styled('div')(({ theme }) => ({
         marginLeft: theme.spacing(1),
         width: 'auto',
     },
+    '@media (max-width:992px)': {
+        width: '40%',
+    },
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -63,6 +66,9 @@ const greenDotStyle = {
 
 const notificationIconStyle = {
     margin: '0 1rem',
+    '@media (max-width:992px)': {
+        display: 'none',
+    },
 }
 
 const Navbar = (props) => {
@@ -88,16 +94,37 @@ const Navbar = (props) => {
                     width: `calc(100% - ${props.drawerWidth}px)`,
                     ml: `${props.drawerWidth}px`,
                     background: 'white',
-                    boxShadow: 'none',
+                    '@media (max-width:992px)': {
+                        width: '100%',
+                    },
                 }}
             >
-                <Toolbar>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: 'flex' }}>
+                <Toolbar sx={{
+                    '@media (max-width:992px)': {
+                        justifyContent: 'center',
+                    },
+                }}>
+                    <Box sx={{
+                        flexGrow: 1,
+                        '@media (max-width:992px)': {
+                            display: 'none',
+                        },
+                    }} />
+                    <Box sx={{
+                        display: 'flex', '@media (max-width:992px)': {
+                            gap: '1rem',
+                            flexDirection: 'row-reverse'
+                        },
+                    }}>
                         <Button
-                            sx={buttonStyle}
                             onClick={() => handleRandamization()}
                             data-testid="randomize-btn"
+                            sx={{
+                                '@media (max-width:992px)': {
+                                    padding: '0 .5rem',
+                                },
+                                ...buttonStyle
+                            }}
                         >Randomize</Button>
                         <Search role='searchbox'>
                             <SearchIconWrapper>

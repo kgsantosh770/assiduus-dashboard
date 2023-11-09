@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AccountBalance, AttachMoney, Contacts, Dashboard, Description, Person } from "@mui/icons-material";
 import AppDrawer from "./components/AppDrawer/AppDrawer";
 import Navbar from "./components/Navbar/Navbar";
@@ -72,10 +72,22 @@ function App() {
   })
 
   const drawerWidth = 220;
+  const [chartWidth, setChartWidth] = useState(window.outerWidth > 992 ? 495 : (window.outerWidth * 90) / 100);
+  useEffect(() => {
+    const updateDrawerSize = () => {
+      const newWidth = window.outerWidth > 992 ? 495 : (window.outerWidth * 90) / 100;
+      setChartWidth(newWidth)
+    };
+    window.addEventListener('resize', updateDrawerSize);
+    return () => {
+      window.removeEventListener('resize', updateDrawerSize);
+    };
+  }, []);
+
+
   const [graphData, setGraphData] = useState(allGraphData);
 
   const handleRandomizeButton = () => {
-    console.log(randomizeGraphData(graphData))
     setGraphData((prevData) => randomizeGraphData({ ...prevData }));
   }
 
@@ -90,11 +102,21 @@ function App() {
       border: `1px solid ${muiTheme.palette.primary.textgrey}`,
       borderRadius: '4px',
       color: 'black',
-      fontSize: '.7rem'
+      fontSize: '.7rem',
+      '@media (max-width:992px)': {
+        fontSize: '.6rem',
+        py: '3px',
+      },
     }
     const months = Object.keys(graphData.accounts.data);
     return (
-      <Box sx={{ display: 'flex', gap: '1rem' }}>
+      <Box sx={{
+        display: 'flex',
+        gap: '1rem',
+        '@media (max-width:992px)': {
+          gap: '.5rem',
+        },
+      }}>
         <DropdownButton btnName="Manage" menuItems={[]} style={btnStyle} />
         <DropdownButton
           btnName={graphData.accounts.current}
@@ -121,9 +143,23 @@ function App() {
     )
   }
 
+  const chartContainerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    pb: 6,
+    '@media (max-width:992px)': {
+      flexDirection: 'column',
+      pb: 0,
+    },
+  }
+
   return (
     <ThemeProvider theme={muiTheme}>
-      <Box className="App" sx={{ display: 'flex' }}>
+      <Box className="App" sx={{
+        display: 'flex', '@media (max-width:992px)': {
+          overflow: 'hidden',
+        },
+      }}>
         <CssBaseline />
         <Navbar drawerWidth={drawerWidth} randomize={() => handleRandomizeButton()} />
         <AppDrawer list={appDrawerList} drawerWidth={drawerWidth} />
@@ -132,14 +168,14 @@ function App() {
           sx={{ flexGrow: 1, bgcolor: muiTheme.palette.primary.grey, p: 3, width: '100%' }}
         >
           <Toolbar />
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', pb: 6 }}>
+          <Box sx={chartContainerStyle}>
             <Chart
               title='Checking account'
               headerChildren={<AccountButtons />}
             >
               <LinearChart
                 data={graphData.accounts.data[graphData.accounts.current]}
-                width={495}
+                width={chartWidth}
                 height={240}
               />
             </Chart>
@@ -150,13 +186,13 @@ function App() {
               <BarChart
                 xValues={graphData.invoice.xValues}
                 data={graphData.invoice.data}
-                width={495}
+                width={chartWidth}
                 height={240}
                 yAxisSpacing={70}
               />
             </Chart>
           </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={chartContainerStyle}>
             <Chart
               title='Total cash flow'
               headerChildren={<CashflowLabels />}
@@ -164,18 +200,18 @@ function App() {
               <BarChart
                 xValues={graphData.cashflow.xValues}
                 data={graphData.cashflow.data}
-                width={495}
+                width={chartWidth}
                 height={240}
                 yAxisSpacing={20}
               />
             </Chart>
             <Chart title="Account Watchlist">
-              <DataTable data={graphData.watchlist.data} width={490} height={240} />
+              <DataTable data={graphData.watchlist.data} width={chartWidth - 10} height={240} />
             </Chart>
           </Box>
         </Box>
       </Box>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 

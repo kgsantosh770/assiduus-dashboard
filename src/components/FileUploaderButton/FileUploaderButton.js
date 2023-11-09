@@ -8,7 +8,13 @@ const FileUploaderButton = (props) => {
     return (
         <>
             <Button
-                sx={{ color: theme.palette.primary.main, background: '#e8eefd' }}
+                sx={{
+                    color: theme.palette.primary.main,
+                    background: '#e8eefd',
+                    '@media (max-width:992px)': {
+                        fontSize: '0.7rem',
+                    },
+                }}
                 onClick={() => hiddenFileInput.current.click()}
             >
                 {props.btnName}

@@ -10,7 +10,10 @@ function BarChart(props) {
     const barWidth = 10;
 
     useEffect(() => {
-        const margin = { top: 40, right: 40, bottom: 50, left: 40 };
+        const margin = window.outerWidth < 992 ?
+            { top: 40, right: 40, bottom: 50, left: 20 } :
+            { top: 40, right: 40, bottom: 50, left: 40 }
+
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height);
@@ -49,7 +52,7 @@ function BarChart(props) {
             .attr('stroke-width', 0)
             .style('text-anchor', 'middle')
             .attr('class', 'x-axis')
-            
+
         // Remove y-axis line (no y-axis)
         svg.select('.domain').remove();
     }, [xValues, data]);

@@ -42,6 +42,9 @@ const AppDrawer = (props) => {
                     width: props.drawerWidth,
                     boxSizing: 'border-box',
                 },
+                '@media (max-width:992px)': {
+                    display: 'none',
+                  },
             }}
         >
             <Toolbar sx={toolBarStyle}>

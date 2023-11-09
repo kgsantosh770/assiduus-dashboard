@@ -54,7 +54,11 @@ export default function DropdownButton(props) {
                     aria-expanded={open ? 'true' : undefined}
                     aria-haspopup="true"
                     onClick={handleToggle}
-                    sx={{ display: 'flex', gap: '.3rem', ...props.style }}
+                    sx={{
+                        display: 'flex', 
+                        gap: '.3rem', 
+                        ...props.style, 
+                    }}
                 >
                     {props.btnName}
                     <KeyboardArrowDown sx={{ width: '16px' }} />

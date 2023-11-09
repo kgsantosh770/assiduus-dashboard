@@ -7,7 +7,10 @@ const LinearChart = (props) => {
     const svgRef = useRef(null);
     const { data, width, height } = props;
     useEffect(() => {
-        const margin = { top: 40, right: 40, bottom: 50, left: 40 };
+        const margin = window.outerWidth < 992 ?
+            { top: 40, right: 30, bottom: 50, left: 20 } :
+            { top: 40, right: 40, bottom: 50, left: 40 }
+
 
         const svg = d3.select(svgRef.current)
             .attr('width', width)
