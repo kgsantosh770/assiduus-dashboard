@@ -71,7 +71,12 @@ function App() {
   const drawerWidth = 220;
   const graphData = {
     'accounts': {
-      data: [25, 65, 67, 45, 78, 54, 89, 10, 76, 32],
+      data: {
+        'January': [25, 65, 67, 45, 78, 54, 89, 10, 76, 32],
+        'February': [45, 75, 27, 65, 48, 24, 49, 70, 86, 32],
+        'March': [25, 65, 67, 45, 78, 54, 89, 10, 76, 32],
+        'April': [45, 75, 27, 65, 48, 24, 49, 70, 86, 32],
+      },
     },
     'invoice': {
       xValues: ['older', 'Jan 01-08', 'Jan 09-16', 'Jan 17-24', 'Jan 25-31', 'future'],
@@ -102,10 +107,11 @@ function App() {
       color: 'black',
       fontSize: '.7rem'
     }
+    const months = Object.keys(graphData.accounts.data);
     return (
       <Box sx={{ display: 'flex', gap: '1rem' }}>
         <DropdownButton btnName="Manage" menuItems={[]} style={btnStyle} />
-        <DropdownButton btnName="January" menuItems={["February", "March", "April"]} style={btnStyle} />
+        <DropdownButton btnName={months[0]} menuItems={months.slice(1)} style={btnStyle} />
       </Box>
     )
   }
@@ -142,7 +148,7 @@ function App() {
               headerChildren={<AccountButtons />}
             >
               <LinearChart
-                data={graphData.accounts.data}
+                data={Object.values(graphData.accounts.data)[0]}
                 width={495}
                 height={240}
               />
