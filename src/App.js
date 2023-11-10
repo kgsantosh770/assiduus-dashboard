@@ -145,7 +145,7 @@ function App() {
 
   const chartContainerStyle = {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     pb: 6,
     '@media (max-width:992px)': {
       flexDirection: 'column',
