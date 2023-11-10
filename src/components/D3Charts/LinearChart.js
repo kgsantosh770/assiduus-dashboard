@@ -53,7 +53,7 @@ const LinearChart = (props) => {
 
         // Remove y-axis line (no y-axis)
         svg.select('.domain').remove();
-    }, [props.data]);
+    }, [data, width, height, theme.palette.primary.main]);
     return <svg className='line-chart' ref={svgRef}></svg>
 }
 

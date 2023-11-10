@@ -55,7 +55,7 @@ function BarChart(props) {
 
         // Remove y-axis line (no y-axis)
         svg.select('.domain').remove();
-    }, [xValues, data]);
+    }, [xValues, data, width, height, yAxisSpacing, theme.palette.primary.main]);
 
     return <svg className='bar-chart' ref={svgRef}></svg>;
 }
